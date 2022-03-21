@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" dir='ltr'>
+<head>
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Better Future</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+	<script language="JavaScript" type="text/javascript" src="configuration.js"></script>
+	<script language="JavaScript" type="text/javascript" src="Java.js"></script>
+	
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCW6j-pnjKd3NcpABgTocsE3MZ6NVYNNa8&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <style type="text/css">
+      
+      #map {
+        height: 65%;
+		width: 90%;
+		position:absolute;
+		right: 50px;
+		color: black;
+      }
+
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        padding: 0;
+      }
+
+      .custom-map-control-button {
+        appearance: button;
+        background-color: #fff;
+        border: 0;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        margin: 10px;
+        padding: 0 0.5em;
+        height: 40px;
+        font: 400 18px Roboto, Arial, sans-serif;
+        overflow: hidden;
+      }
+      .custom-map-control-button:hover {
+        background: #ebebeb;
+      }
+     
+    </style>
+
+    <script>
+      
+      let map, infoWindow;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 48.895216, lng: 2.235669 },
+          zoom: 12,
+        });
+
+        
+            const icons = {
+               
+                info: {
+                    icon:"location.png",
+                },
+            };
+            const features = [
+                
+                {
+                    position: new google.maps.LatLng(48.895336, 2.238389),
+                    type: "info",
+                }
+            ];
+
+            const secretMessages = [
+              "<h3>Better Future</h3><p>9/11 All. de l'Arche</p><p>92400 Courbevoie</p><p>Ouvert lundi à vendredi : 9h-12h  et 14h-18h</p><p>Fermée les jours fériés</p>"
+            ];
+
+
+            // Create markers.
+            for (let i = 0; i < features.length; i++) {
+                const marker = new google.maps.Marker({
+                    position: features[i].position,
+                    icon: icons[features[i].type].icon,
+                    map: map,
+                });
+                attachSecretMessage(marker, secretMessages[i]);
+        }
+
+
+        infoWindow = new google.maps.InfoWindow();
+        const locationButton = document.createElement("button");
+        locationButton.textContent = "Cliquez ici pour trouver votre position";
+        locationButton.classList.add("custom-map-control-button");
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(
+          locationButton
+        );
+        locationButton.addEventListener("click", () => {
+          // Try HTML5 geolocation.
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                const pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude,
+                };
+                infoWindow.setPosition(pos);
+                infoWindow.setContent("<h3>Vous êtes ici</h3>");
+                infoWindow.open(map);
+                map.setCenter(pos);
+              },
+              () => {
+                handleLocationError(true, infoWindow, map.getCenter());
+              }
+            );
+          } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+          }
+        });
+
+       
+      }
+
+      function attachSecretMessage(marker, secretMessage) {
+        const infowindow = new google.maps.InfoWindow({
+          content: secretMessage,
+        });
+        marker.addListener("click", () => {
+          infowindow.open(marker.get("map"), marker);
+        });
+      }
+
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(
+          browserHasGeolocation
+            ? "Error: The Geolocation service failed."
+            : "Error: Your browser doesn't support geolocation."
+        );
+        infoWindow.open(map);
+      }
+    </script>
+
+</head>
+<body>
+	 <div class="entete">
+        <a href="home.html">
+        <img src="images/logo.png" alt="image de logo" id="logo">
+        </a>
+        <h1>Better Future</h1> 
+    </div>
+		
+		<div class="box">
+			<input type="search" name="search"placeholder="cherche">
+		</div>
+				   
+		<div class="titleEn">
+            <ul class="menu">
+                <li><a href="home.html">Page d'accueil</a></li>
+                <li><a href="thema1.html">Caractéristiques de domaines</a></li>
+                <li><a href="thema2.html">Points communs des gens bien payés</li> 
+                <li><a href="thema3.html">Différences sexuelles</a></li>
+                <li><a href="thema4.html">Analyse de la demande d’emploi</a></li>
+                <li><a href="thema5.html">Situation d’emplois à UT1</a></li>
+				<li><a href="entreprise.html">About us</a></li>
+            </ul>
+        </div>
+	
+    <div class="corp">
+		<h2>Qui somme-nous ?</h2>
+		</br>
+		<h4>Technologies et services de l’information  10001 employés et plus  286328 sur LinkedIn
+		Better future is a global leader in partnering with companies to transform and manage their business by harnessing the power of technology. 
+		The Group is guided everyday by its purpose of unleashing human energy through technology for an inclusive and sustainable future.
+		It is a responsible and diverse organization of over 325,000 team members in more than 50 countries. With its strong 55-year heritage and deep industry expertise, Better future is trusted by its clients to address the entire breadth of their business needs, from strategy and design to operations, fueled by the fast evolving and innovative world of cloud, data, AI, connectivity, software, digital engineering and platforms. The Group reported in 2021 global revenues of €18 billion.
+		</h4>
+		</br>
+		</br>
+		<h2>Contact</h2>
+		</br>
+		<h4>Email: BetterFuture@gmail.com</h4>
+		<h4>Tel: 07 66 08 08 08</h4>
+		</br>
+		</br>
+		<h2>Où somme-nous ?</h2>
+		
+		</br>
+		<div id="map"></div>
+		
+	</div>
+
+  </br>
+   
+   
+</body>
+</html>
